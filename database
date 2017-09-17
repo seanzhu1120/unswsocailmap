@@ -1,0 +1,74 @@
+CREATE TABLE `SocialMap`.`Comment` (
+  `C_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `E_ID` int(11) NOT NULL,
+  `U_ID` int(11) NOT NULL,
+  `TO_COMMENT_ID` int(11) DEFAULT NULL,
+  `CONTENT` varchar(150) NOT NULL,
+  `TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`C_ID`),
+  UNIQUE KEY `C_ID` (`C_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SocialMap`.`Event` (
+  `E_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `TITLE` varchar(50) NOT NULL,
+  `PICTURE` varchar(100) NOT NULL,
+  `INTRODUCTION` varchar(50) NOT NULL,
+  `CATEGORY` varchar(45) NOT NULL,
+  `VENUE` varchar(45) NOT NULL,
+  `date` date NOT NULL,
+  `S_TIME` timestamp NULL DEFAULT NULL,
+  `E_TIME` timestamp NULL DEFAULT NULL,
+  `cost` float DEFAULT NULL,
+  `URL` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`E_ID`),
+  UNIQUE KEY `E_ID_UNIQUE` (`E_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `SocialMap`.`Follows` (
+  `U_ID` int(11) NOT NULL,
+  `E_ID` int(11) NOT NULL,
+  PRIMARY KEY (`U_ID`,`E_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SocialMap`.`Owns` (
+  `U_ID` int(11) NOT NULL,
+  `E_ID` int(11) NOT NULL,
+  PRIMARY KEY (`U_ID`,`E_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SocialMap`.`Rate` (
+  `U_ID` int(11) NOT NULL,
+  `E_ID` int(11) NOT NULL,
+  `SCORE` float NOT NULL,
+  PRIMARY KEY (`U_ID`,`E_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SocialMap`.`User` (
+  `U_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `USERNAME` varchar(50) NOT NULL,
+  `PASSWORD` varchar(50) NOT NULL,
+  `PHONE` varchar(50) NOT NULL,
+  `ICON` varchar(100) NOT NULL,
+  `STATUS` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`U_ID`),
+  UNIQUE KEY `U_ID` (`U_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+
+
+
+
+INSERT INTO SocialMap.User(U_ID,USERNAME,PASSWORD,PHONE,ICON,STATUS)
+		VALUES (null, "XIANG LI","12345","0406021018","ICON/1.JPG",0);
+
+INSERT INTO SocialMap.Event(E_ID,TITLE,PICTURE,INTRODUCTION,CATEGORY,VENUE,DATE,S_TIME,E_TIME)
+		VALUES (null, "seminar: sex","desktop/aaavb.jpg","very interesting","seminar","lib","2017-09-17",
+        CURRENT_TIME(),CURRENT_TIME());
+        
+INSERT INTO SocialMap.Comment(C_ID,E_ID,U_ID,TO_COMMENT_ID,CONTENT,TIME)
+		VALUES (null, 1,1,NULL,"SUCKS",CURRENT_TIME());
+
+INSERT INTO SocialMap.Owns(U_ID,E_ID)
+		VALUES (1,1)
